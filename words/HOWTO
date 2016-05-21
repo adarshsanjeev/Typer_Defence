@@ -1,0 +1,5 @@
+# How to run the parser
+  * First run parse.py and give it the input. This will output the words files.
+  * Then copy default.js from the source and run attach.py. This should attach the words to the 
+	bottom of it.
+  * MANUALLY LOOK OVER IT for any errors before copying it back and replacing the old version.
