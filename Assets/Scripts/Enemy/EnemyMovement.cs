@@ -5,9 +5,11 @@ public class EnemyMovement : MonoBehaviour
 {
     Transform MainTower;
     GameObject tower;
-    //EnemyHealth enemyHealth;
+    //EnemyManager enmg = new EnemyManager();
+    
     NavMeshAgent nav;
     private Animator myAnimator;
+    public Transform[] targetPoints;
     void Start()
     {
         myAnimator = GetComponent<Animator>();
@@ -17,14 +19,11 @@ public class EnemyMovement : MonoBehaviour
     {
         tower = GameObject.FindGameObjectWithTag("Player");
         MainTower = GameObject.FindGameObjectWithTag ("Player").transform;
-        
-        //playerHealth = player.GetComponent <PlayerHealth> ();
-        //enemyHealth = GetComponent <EnemyHealth> ();
         nav = GetComponent <NavMeshAgent> ();
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == tower)
+        if (other.gameObject == tower )
         {
             myAnimator.SetBool("reachedTower", true);
         }
@@ -33,21 +32,34 @@ public class EnemyMovement : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == tower)
-        {
-            myAnimator.SetBool("reachedTower", false);
-        }
     }
 
     void Update ()
     {
         if (myAnimator.GetBool("reachedTower") == false)
         {
-            nav.SetDestination (MainTower.position);
+            int index = int.Parse(gameObject.name[gameObject.name.Length-1].ToString());
+            nav.SetDestination(targetPoints[index%targetPoints.Length].position);
         }
         else if(myAnimator.GetBool("reachedTower") == true)
         {
             nav.enabled = false;
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.isKinematic = true;
+            if(GetComponent<NavMeshObstacle>() == null)
+            {
+                NavMeshObstacle nvm = gameObject.AddComponent<NavMeshObstacle>();
+                nvm.center = new Vector3(0f, 0.92f, 0f);
+                nvm.carving = true;
+            }
+            // rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+        }
+
+        if (Input.GetKey(KeyCode.K))
+        {
+            Destroy(this.gameObject);
         }
     }
+
+   
 }

@@ -1,0 +1,2 @@
+Bridge_small_02.unity filter=lfs diff=lfs merge=lfs -text
+Bridge_small_02.unity.meta filter=lfs diff=lfs merge=lfs -text
