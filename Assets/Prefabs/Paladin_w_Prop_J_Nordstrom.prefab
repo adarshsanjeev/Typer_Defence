@@ -2122,7 +2122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3126fd43aa6234e4b88e98dcdba0a2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  msg: PaladinSoldier
   startDelay: 2
   typeDelay: 0.04
 --- !u!114 &11422770

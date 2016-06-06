@@ -54,11 +54,11 @@ public class EnemyMovement : MonoBehaviour
             }
             // rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
         }
-
+        /*
         if (Input.GetKey(KeyCode.K))
         {
             Destroy(this.gameObject);
-        }
+        }*/
     }
 
    
