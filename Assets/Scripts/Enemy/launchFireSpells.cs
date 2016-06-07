@@ -9,6 +9,7 @@ public class launchFireSpells : MonoBehaviour
     private GameObject currentPrefabObject;
     private FireBaseScript currentPrefabScript;
     private int currentPrefabIndex;
+    Transform MainTower;
     int i = 0;
     void Start()
     {
@@ -16,13 +17,13 @@ public class launchFireSpells : MonoBehaviour
         //Physics.IgnoreLayerCollision(my_layer, Prefabs[0].layer, true);
         //Physics.IgnoreLayerCollision(my_layer, Prefabs[1].layer, true);
     }
-
+    void Awake()
+    {
+        MainTower = GameObject.FindGameObjectWithTag("Player").transform;
+        transform.LookAt(MainTower);
+    }
     void Update()
     {
-        if (Input.GetKey(KeyCode.U))
-        {
-            StartCurrent();
-        }
 
         if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus))
         {
