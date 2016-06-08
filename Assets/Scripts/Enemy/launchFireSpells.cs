@@ -21,6 +21,9 @@ public class launchFireSpells : MonoBehaviour
     {
         MainTower = GameObject.FindGameObjectWithTag("Player").transform;
         transform.LookAt(MainTower);
+        StopCurrent();
+        BeginEffect();
+        NextPrefab();
     }
     void Update()
     {
@@ -62,7 +65,7 @@ public class launchFireSpells : MonoBehaviour
             else
             {
                 // set the start point in front of the player a ways
-                pos = transform.position + (forwardY * 10.0f);
+                pos = transform.position;// + (forwardY * 10.0f);
             }
         }
         else
@@ -86,7 +89,7 @@ public class launchFireSpells : MonoBehaviour
 
     public void StartCurrent()
     {
-        if(i%2==0)
+        if(i%2!=0)
         {
             StopCurrent();
             BeginEffect();
