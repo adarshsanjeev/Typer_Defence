@@ -13,7 +13,8 @@ public class GameObjectSwitch : MonoBehaviour
     }
 
     public SwitchableArrays[] switchableGroups;
-    public KeyCode toggleKey = KeyCode.C;
+    //public KeyCode toggleKey = KeyCode.C;
+    public KeyCode toggleKey = KeyCode.None;
     public int currentlyActiveGroup;
 
     void Awake()

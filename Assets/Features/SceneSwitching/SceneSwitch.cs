@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitch : MonoBehaviour {
 
-    public KeyCode key = KeyCode.L;
+    //public KeyCode key = KeyCode.L;
+    public KeyCode key = KeyCode.None;
     void Update()
     {
         if (Input.GetKeyDown(key))

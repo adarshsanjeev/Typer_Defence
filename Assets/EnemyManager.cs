@@ -1,31 +1,26 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject Paladin;
-    public GameObject wizard;
-    public float spawnTime = 3f;
-    public float spawnTimewizard = 7f;        
-    public Transform[] spawnPoints;
-    public Transform[] wizardspwanPoints;
-    int nextnumber = 0;
-
+    public EnemySpawner espawn_script;
+    public WordTracker wordfuncs_script;
+    public WordList worddict_script;
+    public int spawn_time;
     void Start()
     {
-        InvokeRepeating("SpawWizard", spawnTimewizard, 0);
-        InvokeRepeating("SpawnPaladin", spawnTime, spawnTime);
+        espawn_script.InvokeRepeating("RandomGenerate", spawn_time, 10);
     }
 
-    void SpawWizard()
+    void Update()
     {
-        Instantiate(wizard, wizardspwanPoints[0].position, wizardspwanPoints[0].rotation);
-    }
+        if (Input.anyKey) //Only if a key is pressed
+        {
+            //autofocus on inputbox
+            EventSystem.current.SetSelectedGameObject(wordfuncs_script.inputbox.gameObject, null);
+            wordfuncs_script.inputbox.OnPointerClick(new PointerEventData(EventSystem.current));
 
-    void SpawnPaladin()
-    {
-        //int spawnPointIndex = Random.Range(0, spawnPoints.Length);
-        var enemyClone = Instantiate(Paladin, spawnPoints[nextnumber%spawnPoints.Length].position,spawnPoints[nextnumber%spawnPoints.Length].rotation);
-        enemyClone.name = "Paladin" + nextnumber;
-        nextnumber++;
+            wordfuncs_script.onInput();
+        }
     }
 }

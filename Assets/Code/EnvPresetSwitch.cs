@@ -3,7 +3,8 @@ using System.Collections;
 
 public class EnvPresetSwitch : MonoBehaviour {
 
-    public KeyCode switchKey = KeyCode.V;
+    //public KeyCode switchKey = KeyCode.V;
+    public KeyCode switchKey = KeyCode.None;
     EnvPresetChooser m_envPresetChooser;
 
     void Start()
