@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: CastleGuard1AOC
+  m_Controller: {fileID: 9100000, guid: bf74ec757c0e8ee439c2623287e2c074, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: ec7491f9a6ee63e44b6b573bd75ed609, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: d66144bd4d4916240bbcfab9a5446b61, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b0dcc4411b8d4f442be34c9e33b79e66, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 3ba9a2ef1336dc94f811f92d9507d7a0, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 99e88f996bec6714ca8baa9d553b4df0, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 4d5e6df7d70b1bb4d94eafa0c4757658, type: 2}

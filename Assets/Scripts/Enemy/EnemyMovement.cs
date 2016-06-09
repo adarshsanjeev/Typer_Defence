@@ -46,18 +46,14 @@ public class EnemyMovement : MonoBehaviour
             nav.enabled = false;
             Rigidbody rb = GetComponent<Rigidbody>();
             rb.isKinematic = true;
-            if(GetComponent<NavMeshObstacle>() == null)
+            transform.LookAt(MainTower);
+            if (GetComponent<NavMeshObstacle>() == null)
             {
                 NavMeshObstacle nvm = gameObject.AddComponent<NavMeshObstacle>();
                 nvm.center = new Vector3(0f, 0.92f, 0f);
                 nvm.carving = true;
             }
             // rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
-        }
-
-        if (Input.GetKey(KeyCode.K))
-        {
-            Destroy(this.gameObject);
         }
     }
 
