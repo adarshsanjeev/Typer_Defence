@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class WordTracker : MonoBehaviour {
 
+    public EnemySpawner espawn_script;
     public struct WordObjectpair
     {
         public string word;
         public GameObject obj;
+        public EnemySpawner.spawn_point sp;
     }
 
-    List<WordObjectpair> enemy_array = new List<WordObjectpair> { }; //will hold all the enemies as pairs of word and object
+    public List<WordObjectpair> enemy_array = new List<WordObjectpair> { }; //will hold all the enemies as pairs of word and object
     List<string> new_array = new List<string> { }; //temporary array to store possible enemy targets based on input text
 
     public InputField inputbox;
@@ -34,7 +36,7 @@ public class WordTracker : MonoBehaviour {
 
     }
 
-    public void AddEnemy(int tier, GameObject eobj)
+    public void AddEnemy(int tier, GameObject eobj,EnemySpawner.spawn_point tsp)
     {
         char c = letters[Random.Range(0, 26)];
         Debug.Log("tier_" + tier.ToString() + "_" + c.ToString());
@@ -44,16 +46,35 @@ public class WordTracker : MonoBehaviour {
         WordObjectpair temp;
         temp.word = word_list[Random.Range(0, word_list.Length)];
         temp.obj = eobj;
+        temp.sp = tsp;
         enemy_array.Add(temp);
         eobj.GetComponentInChildren<Typer>().msg = temp.word; //sets the text over enemy in GUI
     }
 
     public void DeleteEnemy(WordObjectpair enem_obj)
     {
-        //TODO : call shoot arrow
+        //TODO : call shoot tower weapon
         enemy_array.Remove(enem_obj);
+        freeSpawnPoint(enem_obj);
+        espawn_script.enemy_count[enem_obj.sp.choice]--;
         //TODO : Destroy respective GameObject
         Destroy(enem_obj.obj);
+    }
+
+    public void freeSpawnPoint(WordObjectpair enem_obj)
+    {
+        if (enem_obj.sp.type == "Wizard")
+        {
+            espawn_script.wizardspawnPoints[enem_obj.sp.id].inuse = false;
+        }
+        else if (enem_obj.sp.type == "Archer")
+        {
+            espawn_script.archerspawnPoints[enem_obj.sp.id].inuse = false;
+        }
+        else if (enem_obj.sp.type == "Melee")
+        {
+            espawn_script.meleespawnPoints[enem_obj.sp.id].inuse = false;
+        }
     }
 
     public void onInput()

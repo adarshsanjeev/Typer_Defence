@@ -12,11 +12,16 @@ public class SapperMovement : MonoBehaviour
     private FireBaseScript currentPrefabScript;
     private int currentPrefabIndex;
 
+    public WordTracker wordfuncs_script;
+    public GameObject temporary;
+
     private Animator myAnimator;
     public Transform[] targetPoints;
     void Start()
     {
         myAnimator = GetComponent<Animator>();
+        temporary = GameObject.Find("EnemyManager");
+        wordfuncs_script = temporary.GetComponentInChildren<WordTracker>();
     }
 
     void Awake()
@@ -38,7 +43,17 @@ public class SapperMovement : MonoBehaviour
     {
         StopCurrent();
         BeginEffect();
-        Destroy(gameObject);
+
+        foreach(WordTracker.WordObjectpair temp in wordfuncs_script.enemy_array)
+        {
+            if(gameObject.name.Equals(temp.obj.name))
+            {
+                Debug.Log(temp);
+                wordfuncs_script.DeleteEnemy(temp); //contains Destroy function
+                break;
+            }
+        }
+        //Destroy(gameObject);
     }
     private void BeginEffect()
     {

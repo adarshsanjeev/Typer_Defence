@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class Typer : MonoBehaviour {
 
-    private string msg = "Paladinsoldier";
+    public string msg = "Paladinsoldier";
     private Text textComp;
     public float startDelay = 1f;
     public float typeDelay = 0.01f;
