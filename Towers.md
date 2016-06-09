@@ -26,16 +26,16 @@ The weapons. These can be selected by the number keys, and affect the damage and
 
 ## Enemies
 
-* Peasant:
-  Tier: 2
+* Castle Guard 1 and Castle Guard 2:
+  Tier: 1
   Speed: S (variable to be decided)
   Appearance: No armour, normal size, pitchfork
   Attack: A (variable to be decided)
   Attack Speed: X
   Special: Melee
 
-* Soldier:
-  Tier: 3
+* Soldier/Paladin:
+  Tier: 2
   Speed: 0.8 x S
   Appearance: Helmet, armour, spear
   Attack: 1.5 x A
@@ -50,16 +50,16 @@ The weapons. These can be selected by the number keys, and affect the damage and
   Attack Speed: X
   Special: Go to 40% of map from left, and shoots arrows.
 
-* Arrow:
-  Tier: 0
-  Speed: 2.5 x S
-  Appearance: Arrow
-  Attack: A
-  Attack Speed: Not Defined
-  Special: Flies in a parabola and hits tower
+* Sapper:
+  Tier: 2
+  Speed: 0.3 x S
+  Appearance: Carrying oversized bomb, small figure
+  Attack: 10 x A
+  Attack Speed: Not defined
+  Special: Self destruct at tower, heavy damage
 
 * Cleric / White wizard:
-  Tier: 2
+  Tier: 3
   Speed: 0.5 x S
   Appearance: Halo, staff, robes
   Attack:  Unable to attack directly
@@ -68,16 +68,24 @@ The weapons. These can be selected by the number keys, and affect the damage and
 	  Buffs friendly targets, by increasing the tier of their word from X to X+1
 	  Ex - buffed peasent tier = 3, new word will be assigned to it.
 
-* Sapper:
+* Zombie / Skeleton / (Any new character):
   Tier: 3
-  Speed: 0.3 x S
-  Appearance: Carrying oversized bomb, small figure
-  Attack: 10 x A
-  Attack Speed: Not defined
-  Special: Self destruct at tower, heavy damage
+  Speed: 0.5 x S
+  Appearance: Undead
+  Attack: 0.8 x A
+  Attack Speed: X
+  Special: Potentially infinite number
 
-* Necromancer / Black wizard:
-  Tier: 2
+* Giant(Boss 1):
+  Tier: 4
+  Speed: 0.3 x S
+  Appearance: Giant, has club
+  Attack: 3 x A
+  Attack Speed: 0.6 x X
+  Special: Slow but heavy
+
+* Necromancer: (Male and Female) (Boss 2):
+  Tier: 4
   Speed: 0.5 x S
   Appearance: Red glow, staff, robes
   Attack: Stops at 38%
@@ -85,26 +93,15 @@ The weapons. These can be selected by the number keys, and affect the damage and
   Attack Speed: 0.2 x X
   Special: Unable to attack directly
 
-* Zombie / Skeleton:
-  Tier: 1
-  Speed: 0.5 x S
-  Appearance: Undead
-  Attack: 0.8 x A
-  Attack Speed: X
-  Special: Potentially infinite number
-
-* Captain:
-  Tier: 4
+* Mysterious creature(Boss 3):
+  **Refer to the document for the pic**
+  Tier: 5
   Speed: S
   Appearance: Large gold helmet, armour, weapons
   Attack: 1.5 x A
   Attack Speed: 1.2 x X
   Special: Melee
+  
+* (A new character is possible)
 
-* Giant:
-  Tier: 5
-  Speed: 0.3 x S
-  Appearance: Giant, has club
-  Attack: 3 x A
-  Attack Speed: 0.6 x X
-  Special: Slow but heavy
+
