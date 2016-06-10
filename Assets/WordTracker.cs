@@ -58,7 +58,24 @@ public class WordTracker : MonoBehaviour {
         freeSpawnPoint(enem_obj);
         espawn_script.enemy_count[enem_obj.sp.choice]--;
         //TODO : Destroy respective GameObject
-        Destroy(enem_obj.obj);
+        if (enem_obj.obj.name.Substring(0, 6) == "Sapper")
+        {
+            enem_obj.obj.GetComponent<NavMeshAgent>().enabled = false;
+            SapperMovement sapper = enem_obj.obj.GetComponent<SapperMovement>();
+            sapper.StopCurrent();
+            sapper.BeginEffect();
+            Destroy(enem_obj.obj);
+        }
+        else
+        {
+            Animator myAnimator = enem_obj.obj.GetComponent<Animator>();
+            myAnimator.SetTrigger("Dead");
+            if(enem_obj.obj.GetComponent<NavMeshAgent>() != null)
+                enem_obj.obj.GetComponent<NavMeshAgent>().enabled = false;
+            enem_obj.obj.GetComponent<Rigidbody>().isKinematic = true;
+            Destroy(enem_obj.obj, 3.2f);
+        }
+        //ScoreManager.score += scoreValue;
     }
 
     public void freeSpawnPoint(WordObjectpair enem_obj)

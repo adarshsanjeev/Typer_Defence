@@ -43,8 +43,8 @@ public class SapperMovement : MonoBehaviour
     {
         StopCurrent();
         BeginEffect();
-
-        foreach(WordTracker.WordObjectpair temp in wordfuncs_script.enemy_array)
+        nav.enabled = false;
+        foreach (WordTracker.WordObjectpair temp in wordfuncs_script.enemy_array)
         {
             if(gameObject.name.Equals(temp.obj.name))
             {
@@ -55,7 +55,7 @@ public class SapperMovement : MonoBehaviour
         }
         //Destroy(gameObject);
     }
-    private void BeginEffect()
+    public void BeginEffect()
     {
         Vector3 pos;
         float yRot = transform.rotation.eulerAngles.y;
@@ -102,7 +102,7 @@ public class SapperMovement : MonoBehaviour
         currentPrefabObject.transform.rotation = rotation;
     }
 
-    private void StopCurrent()
+    public void StopCurrent()
     {
         // if we are running a constant effect like wall of fire, stop it now
         if (currentPrefabScript != null && currentPrefabScript.Duration > 10000)
@@ -115,8 +115,11 @@ public class SapperMovement : MonoBehaviour
 
     void Update()
     {
-        int index = int.Parse(gameObject.name[gameObject.name.Length - 1].ToString());
-        nav.SetDestination(targetPoints[index % targetPoints.Length].position);
+        if (nav.enabled != false)
+        {
+            int index = int.Parse(gameObject.name[gameObject.name.Length - 1].ToString());
+            nav.SetDestination(targetPoints[index % targetPoints.Length].position);
+        }
     }
 
 }
