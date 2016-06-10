@@ -25,24 +25,24 @@ Main control script to which calls invoke repeating and spawns enemies. Also che
 
 Controls the spawning of enemies. Place the spawn points created on unity to this script.Also after isntantiating the enemies, give
 a required name so that they can be identified later, otherwise they will all have the same name. Assigns spawnpoints to enemy objects.
-enemy_choice array holds all possible enemy types available.
-enemy_count array stores counts of enemy type in game (corresponds to enemy choice).
-wave_list array holds the number of enemy to spawn of each type (corresponds to enemy choice).
-spawn_point class holds the spawnpoint transform, id, whether inuse, genre and type of enemy essential to track availability of spawnpoints  
+**enemy_choice** array holds all possible enemy types available.  
+**enemy_count** array stores counts of enemy type in game (corresponds to enemy choice).  
+**wave_list** array holds the number of enemy to spawn of each type (corresponds to enemy choice).  
+**spawn_point** class holds the spawnpoint transform, id, whether inuse, genre and type of enemy essential to track availability of spawnpoints  
 
 ##5. WordTracker.cs
 
-Holds enemy objects in a list and is responsible for adding new words, deleting objects and checking for word completion in inputbox. Also frees spawnpoints
-enemy_array list of WordObjectPair struct which holds all objects in game.
-WordObjectPair struct holds word assigned to enemy, its gameobject model, and a spawnpoint type struct(see EnemySpawner.cs)
+Holds enemy objects in a list and is responsible for adding new words, deleting objects and checking for word completion in inputbox. Also frees spawnpoints  
+**enemy_array** list of WordObjectPair struct which holds all objects in game.  
+**WordObjectPair** struct holds word assigned to enemy, its gameobject model, and a spawnpoint type struct(see EnemySpawner.cs)  
 
 ##6. WordList.cs
 
-Contains a Dictionary which maps a tier and alphabet string to a string array of possible words.
+Contains a Dictionary which maps a tier and alphabet string to a string array of possible words.  
 
 ##7. WaveList.cs
 
-Contains a Dictionary which maps a wave number string to int array of enemy generation of a wave/level.
+Contains a Dictionary which maps a wave number string to int array of enemy generation of a wave/level.  
 
 ##8. launchFireSpells.cs
 
