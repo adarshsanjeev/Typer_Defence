@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class WordTracker : MonoBehaviour {
 
     public EnemySpawner espawn_script;
+
+    [System.Serializable]
     public struct WordObjectpair
     {
         public string word;
@@ -63,17 +65,17 @@ public class WordTracker : MonoBehaviour {
 
     public void freeSpawnPoint(WordObjectpair enem_obj)
     {
-        if (enem_obj.sp.type == "Wizard")
+        if (enem_obj.sp.type.Equals("Wizard"))
         {
             espawn_script.wizardspawnPoints[enem_obj.sp.id].inuse = false;
         }
-        else if (enem_obj.sp.type == "Archer")
+        else if (enem_obj.sp.type.Equals("Archer"))
         {
             espawn_script.archerspawnPoints[enem_obj.sp.id].inuse = false;
         }
-        else if (enem_obj.sp.type == "Melee")
+        else if (enem_obj.sp.type.Equals("Target"))
         {
-            espawn_script.meleespawnPoints[enem_obj.sp.id].inuse = false;
+            espawn_script.targetspawnPoints[enem_obj.sp.id].inuse = false;
         }
     }
 
@@ -100,15 +102,6 @@ public class WordTracker : MonoBehaviour {
                     break; //enemy_array updated, exit loop else error
                 }
             }
-        }
-        printList(new_array);
-    }
-
-    void printList(List<string> print_list)
-    {
-        foreach (string temp in print_list)
-        {
-            Debug.Log(temp);
         }
     }
 }

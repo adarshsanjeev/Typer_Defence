@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour {
 
@@ -21,6 +22,7 @@ public class EnemySpawner : MonoBehaviour {
     public GameObject castleguard2;
 
     public WordTracker wordfuncs_script;
+    public Wavelist wavescript;
 
     public spawn_point[] meleespawnPoints;
     public spawn_point[] wizardspawnPoints;
@@ -29,11 +31,14 @@ public class EnemySpawner : MonoBehaviour {
 
     public string[] enemy_choice = {"Castleguard1","Castleguard2","Archer","Sapper","Paladin","Wizard"};
     public int[] enemy_count = {0,0,0,0,0,0};
-    Collider[] hitcollider;
+    public int[] wave_list;
+    List<int> num_list = new List<int>(); //temporary list
+
     GameObject glob_obj;
     spawn_point glob_tsp;
     public spawn_point null_point;
-    
+    public int level=0;
+
     void Awake()
     {
         initspawnpoints(meleespawnPoints,"Melee");
@@ -57,6 +62,68 @@ public class EnemySpawner : MonoBehaviour {
         null_point.point = null;
         null_point.inuse = false;
         null_point.type = "null object";
+        level = 0;
+        loadNextLevel();
+        //Debug.Log(Random.Range(1, 1));
+    }
+
+    void loadNextLevel()
+    {
+        level++;
+        wavescript.wave_dict.TryGetValue("wave_" + level.ToString(), out wave_list);
+        Debug.Log(wave_list);
+    }
+
+    int addIntList(int[] temp_list)
+    {
+        int sum = 0;
+        foreach(int num in temp_list)
+        {
+            sum += num;
+        }
+        return sum;
+    }
+
+    int getRandomFromLeftover(int[] temp_list)
+    {
+        num_list.Clear();
+        for(int i=0;i<temp_list.Length;i++)
+        {
+            if(temp_list[i] != 0)
+            {
+                num_list.Add(i);
+            }
+        }
+
+        return num_list[Random.Range(0, num_list.Count)]; //num_list.Count will always > 0 since wave_list(temp_list) not empty
+    }
+
+    void orderedGenerate()
+    {
+        if(wave_list == null)
+        {
+            Debug.Log("Game Over");
+            return;
+        }
+
+        if(addIntList(wave_list) > 0)
+        {
+            int choice = getRandomFromLeftover(wave_list);
+            if (wave_list[choice] > 0)
+            {
+                int ret = SpawnEnemy(choice);
+                if (ret != -1)
+                {
+                    wave_list[choice]--;
+                    wordfuncs_script.AddEnemy(ret, glob_obj, glob_tsp);
+                }
+            } 
+        }
+        else if(addIntList(enemy_count) == 0)
+        {
+            Debug.Log("Call for next level");
+            loadNextLevel();
+        }
     }
 
     void RandomGenerate()
@@ -65,7 +132,7 @@ public class EnemySpawner : MonoBehaviour {
         //int ret = SpawnEnemy(3);
         if(ret != -1)
         {
-          wordfuncs_script.AddEnemy(ret,glob_obj,glob_tsp);
+            wordfuncs_script.AddEnemy(ret,glob_obj,glob_tsp);
         }
     }
 
@@ -74,11 +141,11 @@ public class EnemySpawner : MonoBehaviour {
         int tier_no = -1;
         if(enemy_choice[choice].Equals("Wizard"))
         {
-            tier_no = 1;
             spawn_point temp = getEmptySpawnPoint(wizardspawnPoints);
             if (temp.point != null)
             {
-                meleeInstantiate(wizard, temp, "Wizard", choice);
+                rangeInstantiate(wizard, temp, "Wizard", choice);
+                tier_no = 1;
             }
         }
         else if (enemy_choice[choice].Equals("Archer"))
@@ -86,9 +153,9 @@ public class EnemySpawner : MonoBehaviour {
             spawn_point temp = getEmptySpawnPoint(archerspawnPoints);
             if(temp.point != null)
             {
-                meleeInstantiate(archer, temp,"Archer",choice);
+                rangeInstantiate(archer, temp,"Archer",choice);
+                tier_no = 2;
             }
-            tier_no = 2;
         }
         else 
         {
@@ -97,25 +164,24 @@ public class EnemySpawner : MonoBehaviour {
 
             if(temp.point != null)
             {
-                temp.inuse = true;
                 if (enemy_choice[choice].Equals("Paladin"))
                 {
-                    meleeInstantiate(Paladin, anothertemp, "Paladin", choice);
+                    meleeInstantiate(Paladin, anothertemp, "Paladin", choice, temp);
                     tier_no = 4;
                 }
                 else if (enemy_choice[choice].Equals("Castleguard1"))
                 {
-                    meleeInstantiate(castleguard1, anothertemp, "Castleguard1", choice);
+                    meleeInstantiate(castleguard1, anothertemp, "Castleguard1", choice, temp);
                     tier_no = 0;
                 }
                 else if (enemy_choice[choice].Equals("Castleguard2"))
                 {
-                    meleeInstantiate(castleguard2, anothertemp, "Castleguard2", choice);
+                    meleeInstantiate(castleguard2, anothertemp, "Castleguard2", choice, temp);
                     tier_no = 1;
                 }
                 else if (enemy_choice[choice].Equals("Sapper"))
                 {
-                    meleeInstantiate(sapper, anothertemp, "Sapper", choice);
+                    meleeInstantiate(sapper, anothertemp, "Sapper", choice, temp);
                     tier_no = 3;
                 }
             }
@@ -123,7 +189,7 @@ public class EnemySpawner : MonoBehaviour {
         return tier_no; 
     }
 
-    void meleeInstantiate(GameObject model, spawn_point tsp, string name,int choice)
+    void rangeInstantiate(GameObject model, spawn_point tsp, string name,int choice)
     {
         var enemyClone = Instantiate(model, tsp.point.position, tsp.point.rotation);
         enemyClone.name = name + enemy_count[choice].ToString(); //removing this line causes FormatException
@@ -131,6 +197,17 @@ public class EnemySpawner : MonoBehaviour {
         tsp.inuse = true;
         tsp.choice = choice;
         glob_tsp = tsp;
+        enemy_count[choice]++;
+    }
+
+    void meleeInstantiate(GameObject model, spawn_point tsp, string name, int choice, spawn_point targ_sp)
+    {
+        var enemyClone = Instantiate(model, tsp.point.position, tsp.point.rotation);
+        enemyClone.name = name + enemy_count[choice].ToString(); //removing this line causes FormatException
+        glob_obj = (GameObject)enemyClone;
+        targ_sp.inuse = true;
+        targ_sp.choice = choice;
+        glob_tsp = targ_sp;
         enemy_count[choice]++;
     }
 
@@ -146,19 +223,3 @@ public class EnemySpawner : MonoBehaviour {
         return null_point;
     }
 }
-
-
-//foreach(Transform spoint in wizardspawnPoints)
-//{
-//    hitcollider = Physics.OverlapSphere(spoint.position,2);
-//    if(hitcollider.Length > 0)
-//    {
-//        Instantiate(wizard, wizardspawnPoints[0].position, wizardspawnPoints[0].rotation);
-//        break;
-//    }
-//    else
-//    {
-//        Debug.Log("Spawn Point number " + sp_count.ToString() + " is occupied");
-//    }
-//    sp_count++;
-//}
