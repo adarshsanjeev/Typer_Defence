@@ -38,8 +38,11 @@ public class EnemyMovement : MonoBehaviour
     {
         if (myAnimator.GetBool("reachedTower") == false)
         {
-            int index = int.Parse(gameObject.name[gameObject.name.Length-1].ToString());
-            nav.SetDestination(targetPoints[index%targetPoints.Length].position);
+            if (nav.enabled != false)
+            {
+                int index = int.Parse(gameObject.name[gameObject.name.Length - 1].ToString());
+                nav.SetDestination(targetPoints[index % targetPoints.Length].position);
+            }
         }
         else if(myAnimator.GetBool("reachedTower") == true)
         {

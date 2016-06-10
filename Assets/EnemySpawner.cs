@@ -13,7 +13,7 @@ public class EnemySpawner : MonoBehaviour {
         public string type;
         public int choice;
     }
-
+    public Transform pausemenu;
     public GameObject Paladin;
     public GameObject wizard;
     public GameObject archer;
@@ -23,7 +23,7 @@ public class EnemySpawner : MonoBehaviour {
 
     public WordTracker wordfuncs_script;
     public Wavelist wavescript;
-
+    
     public spawn_point[] meleespawnPoints;
     public spawn_point[] wizardspawnPoints;
     public spawn_point[] archerspawnPoints;
@@ -129,8 +129,8 @@ public class EnemySpawner : MonoBehaviour {
     void RandomGenerate()
     {
         int ret = SpawnEnemy(Random.Range(0,enemy_choice.Length));
-        //int ret = SpawnEnemy(3);
-        if(ret != -1)
+
+        if (ret != -1)
         {
             wordfuncs_script.AddEnemy(ret,glob_obj,glob_tsp);
         }
@@ -222,4 +222,27 @@ public class EnemySpawner : MonoBehaviour {
         }
         return null_point;
     }
+
+    void Pause()
+    {
+        if (pausemenu.gameObject.activeInHierarchy == false)
+        {
+            pausemenu.gameObject.SetActive(true);
+            //Time.timeScale = 0;
+        }
+        else if (pausemenu.gameObject.activeInHierarchy == true)
+        {
+            pausemenu.gameObject.SetActive(false);
+            // Time.timeScale = 1;
+        }
+    }
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
+        }
+    }
 }
+
+

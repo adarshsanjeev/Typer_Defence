@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class WordTracker : MonoBehaviour {
 
     public EnemySpawner espawn_script;
-
-    [System.Serializable]
     public struct WordObjectpair
     {
         public string word;
@@ -60,22 +58,39 @@ public class WordTracker : MonoBehaviour {
         freeSpawnPoint(enem_obj);
         espawn_script.enemy_count[enem_obj.sp.choice]--;
         //TODO : Destroy respective GameObject
-        Destroy(enem_obj.obj);
+        if (enem_obj.obj.name.Substring(0, 6) == "Sapper")
+        {
+            enem_obj.obj.GetComponent<NavMeshAgent>().enabled = false;
+            SapperMovement sapper = enem_obj.obj.GetComponent<SapperMovement>();
+            sapper.StopCurrent();
+            sapper.BeginEffect();
+            Destroy(enem_obj.obj);
+        }
+        else
+        {
+            Animator myAnimator = enem_obj.obj.GetComponent<Animator>();
+            myAnimator.SetTrigger("Dead");
+            if(enem_obj.obj.GetComponent<NavMeshAgent>() != null)
+                enem_obj.obj.GetComponent<NavMeshAgent>().enabled = false;
+            enem_obj.obj.GetComponent<Rigidbody>().isKinematic = true;
+            Destroy(enem_obj.obj, 3.2f);
+        }
+        //ScoreManager.score += scoreValue;
     }
 
     public void freeSpawnPoint(WordObjectpair enem_obj)
     {
-        if (enem_obj.sp.type.Equals("Wizard"))
+        if (enem_obj.sp.type == "Wizard")
         {
             espawn_script.wizardspawnPoints[enem_obj.sp.id].inuse = false;
         }
-        else if (enem_obj.sp.type.Equals("Archer"))
+        else if (enem_obj.sp.type == "Archer")
         {
             espawn_script.archerspawnPoints[enem_obj.sp.id].inuse = false;
         }
-        else if (enem_obj.sp.type.Equals("Target"))
+        else if (enem_obj.sp.type == "Melee")
         {
-            espawn_script.targetspawnPoints[enem_obj.sp.id].inuse = false;
+            espawn_script.meleespawnPoints[enem_obj.sp.id].inuse = false;
         }
     }
 
@@ -102,6 +117,15 @@ public class WordTracker : MonoBehaviour {
                     break; //enemy_array updated, exit loop else error
                 }
             }
+        }
+        printList(new_array);
+    }
+
+    void printList(List<string> print_list)
+    {
+        foreach (string temp in print_list)
+        {
+            Debug.Log(temp);
         }
     }
 }

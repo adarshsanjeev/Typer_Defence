@@ -7,8 +7,8 @@ public class Typer : MonoBehaviour {
 
     public string msg = "Paladinsoldier";
     private Text textComp;
-    public float startDelay = 1f;
-    public float typeDelay = 0.01f;
+    private float startDelay = 0.01f;
+    private float typeDelay = 0.01f;
     
     // Use this for initialization
     void Start () {

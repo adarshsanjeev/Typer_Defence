@@ -1344,6 +1344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3126fd43aa6234e4b88e98dcdba0a2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  msg: Paladinsoldier
   startDelay: 2
   typeDelay: 0.04
 --- !u!114 &11473282
@@ -1388,11 +1389,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 70
+    m_FontSize: 130
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 70
+    m_MaxSize: 130
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1594,7 +1595,7 @@ RectTransform:
   m_GameObject: {fileID: 157018}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000016292068}
   m_LocalPosition: {x: 0, y: 0, z: -0.006}
-  m_LocalScale: {x: 0.004919238, y: 0.0036725753, z: 0.008653846}
+  m_LocalScale: {x: 0.004919238, y: 0.00447769, z: 0.008653846}
   m_Children:
   - {fileID: 22406042}
   - {fileID: 22437436}
@@ -1602,7 +1603,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.03, y: 2.58}
+  m_AnchoredPosition: {x: 0.03, y: 2.66}
   m_SizeDelta: {x: 500, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22437436
